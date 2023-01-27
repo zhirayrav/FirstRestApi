@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.company.springcourse.FirstRestApp.models.Person;
 import com.company.springcourse.FirstRestApp.repositorise.PeopleRepository;
+import com.company.springcourse.FirstRestApp.utils.PersonNotFoundException;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +24,11 @@ public class PeopleService {
 		return peopleRepository.findAll();
 	}
 	public Person findOne(int id){
-		return peopleRepository.findById(id).orElse(null);
+		return peopleRepository.findById(id).orElseThrow(PersonNotFoundException::new);
+	}
+	@Transactional
+	public void save(Person person) {
+		peopleRepository.save(person);
 	}
 	
 	

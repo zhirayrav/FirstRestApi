@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import lombok.Data;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 
@@ -22,12 +24,17 @@ public class Person {
 	private int id;
 	  
 	    @Column(name = "name")
+	    @NotEmpty(message = "Name shoud not be empty")
+	    @Size(min = 2,max = 100,message = "Name shoud be between 2 and 100 characters ")
 	    private String name;
 
 	    @Column(name = "age")
+	    @Min(value = 0,message = "age shoud be greater than 0")
 	    private int age;
 	    
 	    @Column(name = "email")
+	    @Email
+	    @NotEmpty(message = "Email shoud not be empty")
 	    private String email;
 
 		public int getId() {
